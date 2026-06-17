@@ -5,30 +5,39 @@ let selectedType = "";
 let selectedCount = 5;
 
 
-// Question Type Select
+// Select Question Type
 
 typeButtons.forEach(btn => {
 
     btn.addEventListener("click", () => {
 
-        typeButtons.forEach(b => b.classList.remove("selected"));
+        typeButtons.forEach(b =>
+            b.classList.remove("selected")
+        );
 
         btn.classList.add("selected");
 
-        selectedType = btn.innerText;
+        selectedType = btn.innerText
+        .toLowerCase()
+        .replace(" ","_")
+        .replace("-","_");
 
     });
 
 });
 
 
-// Question Count Select
+
+
+// Select Number of Questions
 
 countButtons.forEach(btn => {
 
     btn.addEventListener("click", () => {
 
-        countButtons.forEach(b => b.classList.remove("selected"));
+        countButtons.forEach(b =>
+            b.classList.remove("selected")
+        );
 
         btn.classList.add("selected");
 
@@ -39,194 +48,465 @@ countButtons.forEach(btn => {
 });
 
 
+
+
+// Load JSON Files
+
+async function loadSubjects(){
+
+    const files=[
+
+        "questions/physics.json",
+
+        "questions/chemistry.json",
+
+        "questions/biology.json",
+
+        "questions/mathematics.json",
+
+        "questions/history.json",
+
+        "questions/geography.json",
+
+        "questions/economics.json",
+
+        "questions/business_studies.json",
+
+        "questions/accountancy.json",
+
+        "questions/political_science.json"
+
+    ];
+
+
+    let database={};
+
+
+    for(let file of files){
+
+        try{
+
+            const response=
+
+            await fetch(file);
+
+            const data=
+
+            await response.json();
+
+            database={
+
+                ...database,
+
+                ...data
+
+            };
+
+        }
+
+        catch(error){
+
+            console.log(
+
+                file,
+
+                "not found"
+
+            );
+
+        }
+
+    }
+
+
+    return database;
+
+}
+
+
+
+
+
 // Generate Questions
+
 
 document
 
-.getElementById("generateBtn")
+.getElementById(
 
-.addEventListener("click", () => {
+"generateBtn"
 
-    const prompt =
+)
 
-    document
+.addEventListener(
 
-    .getElementById("prompt")
+"click",
 
-    .value
+async()=>{
 
-    .trim();
 
+const prompt=
 
+document
 
-    if (prompt === "") {
+.getElementById(
 
-        alert("Please enter a topic.");
+"prompt"
 
-        return;
+)
 
-    }
+.value
 
+.toLowerCase()
 
-    if (selectedType === "") {
+.trim();
 
-        alert("Please select question type.");
 
-        return;
 
-    }
+if(prompt===""){
 
+alert(
 
-    const output =
+"Please enter topic"
 
-    document
+);
 
-    .getElementById("output");
+return;
 
+}
 
-    output.innerHTML = "";
 
 
-    let count = parseInt(selectedCount);
+if(selectedType===""){
 
+alert(
 
-    if (isNaN(count)) {
+"Select question type"
 
-        count = 5;
+);
 
-    }
+return;
 
+}
 
-    for (
 
-        let i = 1;
+const database=
 
-        i <= count;
+await loadSubjects();
 
-        i++
 
-    ) {
+let topicFound=null;
 
-        output.innerHTML += `
 
-        <div class="question-card">
+for(
 
-            <h3>
+let topic
 
-            Question ${i}
+in database
 
-            </h3>
+){
 
+if(
 
-            <p>
+prompt.includes(
 
-            ${prompt}
+topic
 
-            -
+.replaceAll(
 
-            Sample ${selectedType}
+"_",
 
-            Question ${i}
+" "
 
-            </p>
+)
 
+)
 
-            <button
+){
 
-            class="show-answer"
+topicFound=topic;
 
-            onclick="toggleAnswer(${i})"
+break;
 
-            id="btn${i}"
+}
 
-            >
+}
 
-            Show Answer
 
-            </button>
+const output=
 
+document
 
-            <div
+.getElementById(
 
-            class="answer"
+"output"
 
-            id="answer${i}"
+);
 
-            >
 
-            This is the answer for
+output.innerHTML="";
 
-            Question ${i}.
 
-            Later,
 
-            questions.json
+if(
 
-            will provide
+topicFound===null
 
-            real answers.
+){
 
-            </div>
+output.innerHTML=
 
-        </div>
+`
 
-        `;
+<div class="question-card">
 
-    }
+<h3>
+
+Topic not found
+
+</h3>
+
+<p>
+
+Questions for this topic
+
+will be added soon.
+
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+let questions=
+
+database
+
+[topicFound]
+
+[selectedType];
+
+
+
+if(
+
+!questions ||
+
+questions.length===0
+
+){
+
+output.innerHTML=
+
+`
+
+<div class="question-card">
+
+<h3>
+
+No Questions
+
+</h3>
+
+<p>
+
+This category
+
+is empty.
+
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+let count=
+
+parseInt(
+
+selectedCount
+
+);
+
+
+if(
+
+isNaN(count)
+
+){
+
+count=5;
+
+}
+
+
+
+questions=
+
+questions
+
+.slice(
+
+0,
+
+count
+
+);
+
+
+
+questions
+
+.forEach(
+
+(q,index)=>{
+
+
+output.innerHTML+=
+
+`
+
+<div class="question-card">
+
+
+<h3>
+
+Question
+
+${index+1}
+
+</h3>
+
+
+<p>
+
+${q.question}
+
+</p>
+
+
+
+<button
+
+class="show-answer"
+
+onclick=
+
+"toggleAnswer(${index})"
+
+id=
+
+"btn${index}"
+
+>
+
+Show Answer
+
+</button>
+
+
+
+<div
+
+class="answer"
+
+id=
+
+"answer${index}"
+
+>
+
+${q.answer}
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+
 
 });
 
 
 
 
-// Show / Hide Answer
-
-function toggleAnswer(id) {
-
-    const ans =
-
-    document
-
-    .getElementById(
-
-        `answer${id}`
-
-    );
 
 
-    const btn =
+function
 
-    document
+toggleAnswer(
 
-    .getElementById(
+id
 
-        `btn${id}`
+){
 
-    );
+const ans=
+
+document
+
+.getElementById(
+
+`answer${id}`
+
+);
 
 
-    if (
+const btn=
 
-        ans.style.display === "block"
+document
 
-    ) {
+.getElementById(
 
-        ans.style.display = "none";
+`btn${id}`
 
-        btn.innerText =
+);
 
-        "Show Answer";
 
-    }
 
-    else {
+if(
 
-        ans.style.display = "block";
+ans.style.display
 
-        btn.innerText =
+==="block"
 
-        "Hide Answer";
+){
 
-    }
+ans.style.display=
+
+"none";
+
+btn.innerText=
+
+"Show Answer";
 
 }
+
+else{
+
+ans.style.display=
+
+"block";
+
+btn.innerText=
+
+"Hide Answer";
+
+}
+
+        }
