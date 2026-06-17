@@ -1,0 +1,119 @@
+{
+  "physics": [
+    "Motion",
+    "Force and Laws of Motion",
+    "Work Energy and Power",
+    "Gravitation",
+    "Light",
+    "Sound",
+    "Electricity",
+    "Magnetic Effects of Electric Current",
+    "Electrostatics",
+    "Current Electricity",
+    "Magnetism",
+    "Electromagnetic Waves",
+    "Atoms",
+    "Nuclei",
+    "Semiconductors"
+  ],
+
+  "chemistry": [
+    "Matter",
+    "Atoms and Molecules",
+    "Structure of Atom",
+    "Periodic Table",
+    "Chemical Bonding",
+    "Acids Bases and Salts",
+    "Metals and Non Metals",
+    "Carbon Compounds",
+    "Thermodynamics",
+    "Electrochemistry",
+    "Organic Chemistry"
+  ],
+
+  "biology": [
+    "Cell",
+    "Cell Division",
+    "Tissues",
+    "Life Processes",
+    "Photosynthesis",
+    "Human Physiology",
+    "Genetics",
+    "Evolution",
+    "Ecology",
+    "Biotechnology"
+  ],
+
+  "mathematics": [
+    "Algebra",
+    "Linear Equations",
+    "Quadratic Equations",
+    "Trigonometry",
+    "Coordinate Geometry",
+    "Probability",
+    "Statistics",
+    "Calculus",
+    "Vectors",
+    "Matrices"
+  ],
+
+  "history": [
+    "Ancient Civilizations",
+    "Medieval History",
+    "French Revolution",
+    "Industrial Revolution",
+    "World Wars",
+    "Indian National Movement",
+    "Cold War"
+  ],
+
+  "geography": [
+    "Earth",
+    "Climate",
+    "Natural Resources",
+    "Population",
+    "Agriculture",
+    "Industries",
+    "Transport",
+    "Maps"
+  ],
+
+  "economics": [
+    "Demand",
+    "Supply",
+    "Market",
+    "National Income",
+    "Money and Banking",
+    "Inflation",
+    "Government Budget"
+  ],
+
+  "business_studies": [
+    "Nature of Business",
+    "Management",
+    "Planning",
+    "Organising",
+    "Staffing",
+    "Marketing",
+    "Finance"
+  ],
+
+  "accountancy": [
+    "Journal",
+    "Ledger",
+    "Trial Balance",
+    "Depreciation",
+    "Partnership",
+    "Company Accounts",
+    "Cash Flow Statement"
+  ],
+
+  "political_science": [
+    "Democracy",
+    "Constitution",
+    "Parliament",
+    "Judiciary",
+    "Rights",
+    "International Relations"
+  ]
+}
