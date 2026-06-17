@@ -56,25 +56,25 @@ async function loadSubjects(){
 
     const files=[
 
-        "questions/physics.json",
+        "physics.json",
 
-        "questions/chemistry.json",
+        "chemistry.json",
 
-        "questions/biology.json",
+        "biology.json",
 
-        "questions/mathematics.json",
+        "mathematics.json",
 
-        "questions/history.json",
+        "history.json",
 
-        "questions/geography.json",
+        "geography.json",
 
-        "questions/economics.json",
+        "economics.json",
 
-        "questions/business_studies.json",
+        "business_studies.json",
 
-        "questions/accountancy.json",
+        "accountancy.json",
 
-        "questions/political_science.json"
+        "political_science.json"
 
     ];
 
